@@ -15,7 +15,7 @@ public class ParseXML {
     /*
         todo add other event type cases
      */
-    public static List<Object> parseFeed(String content){
+    public static List<Object> parseXmlFeed(String content){
         try{
             boolean inDataItem = false;
             String currentTagName = "";
