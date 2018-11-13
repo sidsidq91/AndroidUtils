@@ -11,12 +11,16 @@ import java.util.List;
 
 public class ParseXML {
     //check for nullpointerexception in caller method
+    //content includes raw xml data in string format
+    /*
+        todo add other event type cases
+     */
     public static List<Object> parseFeed(String content){
         try{
             boolean inDataItem = false;
             String currentTagName = "";
-            Object object = null;
-            List<Object> data = new ArrayList<>();
+            Object object = null;   //DataType Object
+            List<Object> data = new ArrayList<>();     //Holding data set
 
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = factory.newPullParser();
@@ -41,6 +45,7 @@ public class ParseXML {
                         currentTagName = "";
                         break;
                     case XmlPullParser.TEXT:
+                        //Collecting data
                         if (inDataItem && object!=null){
                             switch (currentTagName){
                                 case "TagOne":
@@ -59,14 +64,17 @@ public class ParseXML {
                         }
                         break;
                 }
+                //move to next event
                 eventType = parser.next();
             }
             return data;
         }catch (XmlPullParserException e) {
             e.printStackTrace();
+            //null in case of exception
             return null;
         } catch (IOException e) {
             e.printStackTrace();
+            //null in case of exception
             return null;
         }
     }
